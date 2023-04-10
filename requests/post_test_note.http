@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/diary/
+Content-Type: application/json
+
+{
+  "content": "Toimiiko tämä?",
+  "important": true
+}
