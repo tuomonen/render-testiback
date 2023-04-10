@@ -1,6 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const Diary = require('./models/diary')
 
 const requestLogger = (request, response, next) => {
     console.log('Method:', request.method)
@@ -19,35 +21,19 @@ app.use(requestLogger)
 app.use(cors())
 app.use(express.static('build'))
 
-let diary = [
-    {
-        id: 1,
-        content: "HTML is easy",
-        important: true
-    },
-    {
-        id: 2,
-        content: "Browser can execute only JavaScript",
-        important: false
-    },
-    {
-        id: 3,
-        content: "GET and POST are the most important methods of HTTP protocol",
-        important: true
-    }
-]
-
 app.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
 })
 
 app.get('/api/diary', (request, response) => {
-    response.json(diary)
+    Diary.find({}).then(entries => {
+        response.json(entries)
+    })
 })
 
 app.get('/api/diary/:id', (request, response) => {
     const id = Number(request.params.id)
-    const note = diary.find(note => note.id === id)
+    const note = Diary.find(note => note.id === id)
 
     if (note) {
         response.json(note)
@@ -55,6 +41,7 @@ app.get('/api/diary/:id', (request, response) => {
         response.status(404).end()
     }
 })
+
 
 app.delete('/api/diary/:id', (request, response) => {
     const id = Number(request.params.id)
@@ -79,20 +66,20 @@ app.post('/api/diary', (request, response) => {
         })
     }
 
-    const note = {
+    const entry = {
         content: body.content,
         important: body.important || false,
         id: generateId(),
     }
 
-    diary = diary.concat(note)
+    diary = diary.concat(entry)
 
-    response.json(note)
+    response.json(entry)
 })
 
 app.use(unknownEndpoint)
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
