@@ -15,6 +15,7 @@ mongoose.connect(url)
 
 const diarySchema = new mongoose.Schema({
     content: String,
+    date: Date,
     important: Boolean,
 })
 
@@ -22,6 +23,7 @@ const Diary = mongoose.model('Diary', diarySchema)
 
 const diary = new Diary({
     content: 'Toivottavasti React on hallussa.',
+    date: new Date(),
     important: true,
 })
 
@@ -32,4 +34,11 @@ diary.save().then(result => {
 
 Diary.find({ important: true }).then(result => {
     // ...
+})
+
+Diary.find({}).then(result => {
+    result.forEach(entry => {
+        console.log(entry)
+    })
+    mongoose.connection.close()
 })

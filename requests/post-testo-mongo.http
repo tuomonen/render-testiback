@@ -2,6 +2,7 @@ POST http://localhost:3001/api/diary/
 Content-Type: application/json
 
 {
-  "content": "Vieläkö on juttu kasassa?",
+  "content": "Mongoose makes things easy",
+  "date": "",
   "important": true
 }

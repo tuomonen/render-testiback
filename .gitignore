@@ -17,6 +17,7 @@
 .env.production.local
 .idea/
 indexit/
+mallit-old/
 
 npm-debug.log*
 yarn-debug.log*
