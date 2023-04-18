@@ -8,10 +8,11 @@ if (process.argv.length<3) {
 const password = process.argv[2]
 
 const url =
-    `mongodb+srv://tuomonen:${password}@tuomonen.67bbn9h.mongodb.net/diaryApp?retryWrites=true&w=majority`
+    `mongodb+srv://testi:${password}@testikanta.htwzxnf.mongodb.net/diaryApp?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
+  .then(() => console.log('db connected'))
 
 const diarySchema = new mongoose.Schema({
   content: String,
@@ -27,7 +28,7 @@ const diary = new Diary({
   important: true,
 })
 
-diary.save().then(result => {
+diary.save().then(() => {
   console.log('Diary entry saved!')
   mongoose.connection.close()
 })
@@ -38,9 +39,11 @@ Diary.find({ important: true }).then(result => {
 })
 */
 
+/*
 Diary.find({}).then(result => {
   result.forEach(entry => {
     console.log(entry)
   })
   mongoose.connection.close()
 })
+*/
