@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/diary/
+Content-Type: application/json
+
+{
+  "content": "Tämä on Ville oma muistiinpano",
+  "important": false,
+  "userId": "643e79169ecefb41a1cd7117"
+}
