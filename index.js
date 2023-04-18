@@ -1,8 +1,8 @@
 const app = require('./app')
-const http = require('http')
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 
+<<<<<<< HEAD
 const server = http.createServer(app)
 
 <<<<<<< HEAD
@@ -100,6 +100,9 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 =======
 server.listen(config.PORT, () => {
+=======
+app.listen(config.PORT, () => {
+>>>>>>> dev-token
   logger.info(`Server running on port ${ config.PORT }`)
 >>>>>>> dev-env
 })

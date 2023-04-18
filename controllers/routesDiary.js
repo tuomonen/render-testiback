@@ -14,10 +14,10 @@ const getTokenFrom = request => {
 
 
 diaryRouter.get('/', async (request, response) => {
-  const notes = await Diary
+  const diary = await Diary
     .find({}).populate('user', { username: 1, name: 1 })
 
-  response.json(notes)
+  response.json(diary)
 })
 
 diaryRouter.get('/:id', async(request, response) => {
@@ -31,11 +31,14 @@ diaryRouter.get('/:id', async(request, response) => {
 
 diaryRouter.post('/', async (request, response) => {
   const body = request.body
+  /*
   const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' })
   }
   const user = await User.findById(decodedToken.id)
+*/
+  const user = await User.findById(body.userId)
 
   const note = new Diary({
     content: body.content,
@@ -45,7 +48,7 @@ diaryRouter.post('/', async (request, response) => {
   })
 
   const savedNote = await note.save()
-  user.notes = user.notes.concat(savedNote._id)
+  user.diary = user.diary.concat(savedNote._id)
   await user.save()
 
   response.json(savedNote)
