@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/diary
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpbGxlIiwiaWQiOiI2NDNlNzkxNjllY2VmYjQxYTFjZDcxMTciLCJpYXQiOjE2ODE4MzUzNjJ9.zjuCcG2O__3REuufJ4kxHNhGElmmzY8APq0FHY8GnbY
+
+{
+  "content": "Toinen Bearer autentikoitu muistiinpano",
+  "important": false,
+  "date": ""
+}
