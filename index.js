@@ -35,35 +35,35 @@ app.get('/api/diary', (request, response) => {
 
 app.get('/api/diary/:id', (request, response, next) => {
   Diary.findById(request.params.id)
-      .then(entry => {
-        if (entry) {
-          response.json(entry)
-        } else {
-          response.status(404).end()
-        }
-      })
-      .catch(error => next(error))
+    .then(entry => {
+      if (entry) {
+        response.json(entry)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/diary/:id', (request, response, next) => {
   const { content, important } = request.body
 
   Diary.findByIdAndUpdate(request.params.id,
-      { content, important },
-      { new: true, runValidators: true, context: 'query' }
+    { content, important },
+    { new: true, runValidators: true, context: 'query' }
   )
-      .then(updatedEntry => {
-        response.json(updatedEntry)
-      })
-      .catch(error => next(error))
+    .then(updatedEntry => {
+      response.json(updatedEntry)
+    })
+    .catch(error => next(error))
 })
 
 app.delete('/api/diary/:id', (request, response, next) => {
   Diary.findByIdAndRemove(request.params.id)
-      .then(result => {
-        response.status(204).end()
-      })
-      .catch(error => next(error))
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 })
 
 app.post('/api/diary', (request, response, next) => {
@@ -76,10 +76,10 @@ app.post('/api/diary', (request, response, next) => {
   })
 
   entry.save()
-      .then(savedEntry => {
-        response.json(savedEntry)
-      })
-      .catch(error => next(error))
+    .then(savedEntry => {
+      response.json(savedEntry)
+    })
+    .catch(error => next(error))
 })
 
 //Olemattomien osoitteiden käsittely
