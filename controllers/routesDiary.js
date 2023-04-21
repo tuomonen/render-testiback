@@ -15,7 +15,8 @@ const getTokenFrom = request => {
 
 diaryRouter.get('/', async (request, response) => {
   const diary = await Diary
-    .find({}).populate('user', { username: 1, name: 1 })
+    .find({})
+    .populate('user', { username: 1, name: 1 })
 
   response.json(diary)
 })
@@ -40,14 +41,14 @@ diaryRouter.post('/', async (request, response) => {
 
   //const user = await User.findById(body.userId)
 
-  const note = new Diary({
+  const diary = new Diary({
     content: body.content,
     important: body.important || false,
-    date: new Date(),
+    //date: new Date(),
     user: user._id
   })
 
-  const savedNote = await note.save()
+  const savedNote = await diary.save()
   user.diary = user.diary.concat(savedNote._id)
   await user.save()
 
@@ -64,7 +65,7 @@ diaryRouter.put('/:id', (request, response, next) => {
   const diary = {
     content: body.content,
     important: body.important,
-    date: body.content
+    date: body.date
   }
 
   Diary.findByIdAndUpdate(request.params.id, diary, { new: true })

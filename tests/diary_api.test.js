@@ -182,6 +182,34 @@ describe('when there is initially one user at db', () => {
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
   })
+
+  test('Login succeeeded', async () => {
+    const newUser = {
+      username: 'heltu',
+      name: 'Heli Tuomonen',
+      password: 'salainen',
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+
+    const login = {
+      username: 'heltu',
+      password: 'salainen',
+    }
+
+    const result = await api
+      .post('/api/login')
+      .send(login)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const authorization = result.get('authorization')
+    const token = result.body.token
+    console.log(token)
+    expect(authorization)
+  })
 })
 
 afterAll(async () => {
